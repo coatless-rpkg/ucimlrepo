@@ -99,11 +99,13 @@ fetch_ucirepo <- function(name, id) {
       httr2::req_url_query(!!!query_params) |>
       httr2::req_perform()
   }, error = function(e) {
-    stop('Error connecting to server')
+    message('Error connecting to server')
+    return()
   })
 
   if (response$status_code != 200) {
-    stop('Dataset not found in repository')
+    message('Dataset not found in repository')
+    return()
   }
 
   data <- response |> httr2::resp_body_json(check_type = FALSE)
@@ -120,18 +122,21 @@ fetch_ucirepo <- function(name, id) {
 
   # No data URL means that the dataset cannot be imported into R
   if (is.null(data_url)) {
-    stop(paste0('"', name, '" dataset (id=', id, ') exists in the repository, but is not available for import. Please select a dataset from this list: https://archive.ics.uci.edu/datasets?skip=0&take=10&sort=desc&orderBy=NumHits&search=&Python=true'))
+    message(paste0('"', name, '" dataset (id=', id, ') exists in the repository, but is not available for import. Please select a dataset from this list: https://archive.ics.uci.edu/datasets?skip=0&take=10&sort=desc&orderBy=NumHits&search=&Python=true'))
+    return()
   }
 
   # Parse into dataframe using read.csv
   df <- tryCatch({
     utils::read.csv(data_url, check.names = FALSE)
   }, error = function(e) {
-    stop(paste0('Error reading data csv file for "', name, '" dataset (id=', id, ').'))
+    message(paste0('Error reading data csv file for "', name, '" dataset (id=', id, ').'))
+    return()
   })
 
   if (nrow(df) == 0) {
-    stop(paste0('Error reading data csv file for "', name, '" dataset (id=', id, ').'))
+    message(paste0('Error reading data csv file for "', name, '" dataset (id=', id, ').'))
+    return()
   }
 
   # Header line should be variable names
