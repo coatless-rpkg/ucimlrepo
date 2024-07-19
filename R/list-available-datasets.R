@@ -9,14 +9,19 @@
 #' @return
 #' Prints the list of available datasets.
 #'
+#' Invisibly returns a data frame containing the list of available datasets
+#' with columns of:
+#'
+#' - **id**: Integer ID for the data set.
+#' - **name**: Name of Dataset
+#' - **url**: Download location of the data set
+#'
 #' @include constants.R
 #' @export
 #' @examples
-#' \dontrun{
-#' list_available_datasets(filter = "python") # Required for now...
 #' list_available_datasets(search = "iris")
 #' list_available_datasets(area = "social science")
-#' }
+#' list_available_datasets(filter = "python") # Required for now...
 list_available_datasets <- function(filter, search, area) {
 
   # Validate filter input
@@ -56,7 +61,9 @@ list_available_datasets <- function(filter, search, area) {
       httr2::req_url_query(!!!query_params) |>
       httr2::req_perform()
   }, error = function(e) {
-    stop('Error connecting to server')
+    message('Error connecting to server')
+    message(e)
+    return()
   })
 
   # Convert body to JSON
@@ -64,13 +71,17 @@ list_available_datasets <- function(filter, search, area) {
   data <- response |> httr2::resp_body_json(check_type = FALSE) |> {\(x) x$data}()
 
   if (response$status_code != 200) {
-    stop('Error fetching datasets')
+    message('Error fetching datasets with status code: ', response$status_code)
+    return()
   }
 
   if (length(data) == 0) {
     message('No datasets found')
     return()
   }
+
+  # Create and return a table of data
+  table_of_data <- as.data.frame(do.call(rbind, data))
 
   # Column width for dataset name
   maxNameLen <- max(nchar(sapply(data, function(d) d$name))) + 3
@@ -105,4 +116,6 @@ list_available_datasets <- function(filter, search, area) {
   }
 
   cat(fill = TRUE)
+
+  return(invisible(table_of_data))
 }

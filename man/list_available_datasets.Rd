@@ -15,14 +15,20 @@ list_available_datasets(filter, search, area)
 }
 \value{
 Prints the list of available datasets.
+
+Invisibly returns a data frame containing the list of available datasets
+with columns of:
+\itemize{
+\item \strong{id}: Integer ID for the data set.
+\item \strong{name}: Name of Dataset
+\item \strong{url}: Download location of the data set
+}
 }
 \description{
 Prints a list of datasets that can be imported via the \code{fetch_ucirepo} function.
 }
 \examples{
-\dontrun{
-list_available_datasets(filter = "python") # Required for now...
 list_available_datasets(search = "iris")
 list_available_datasets(area = "social science")
-}
+list_available_datasets(filter = "python") # Required for now...
 }
