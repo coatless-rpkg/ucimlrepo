@@ -14,12 +14,13 @@ Description: Import datasets from the UCI Machine Learning Repository into
 URL: https://r-pkg.thecoatlessprofessor.com/ucimlrepo/, https://github.com/coatless-rpkg/ucimlrepo
 BugReports: https://github.com/coatless-rpkg/ucimlrepo/issues
 License: MIT + file LICENSE
-Encoding: UTF-8
-Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.1
+Depends: R (>= 4.1)
 Imports: 
     httr2,
     utils
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.1
 Collate: 
     'constants.R'
     'fetch-repo.R'
