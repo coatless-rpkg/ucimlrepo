@@ -11,6 +11,8 @@ Authors@R: c(
     )
 Description: Import datasets from the UC Irvine Machine Learning Repository into 
     R scripts, notebooks, and 'Quarto'/'RMarkdown' documents.
+URL: https://r-pkg.thecoatlessprofessor.com/ucimlrepo/, https://github.com/coatless-rpkg/ucimlrepo
+BugReports: https://github.com/coatless-rpkg/ucimlrepo/issues
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)

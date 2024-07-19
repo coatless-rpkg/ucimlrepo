@@ -8,6 +8,15 @@
 \description{
 Import datasets from the UC Irvine Machine Learning Repository into R scripts, notebooks, and 'Quarto'/'RMarkdown' documents.
 }
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://r-pkg.thecoatlessprofessor.com/ucimlrepo/}
+  \item \url{https://github.com/coatless-rpkg/ucimlrepo}
+  \item Report bugs at \url{https://github.com/coatless-rpkg/ucimlrepo/issues}
+}
+
+}
 \author{
 \strong{Maintainer}: James Joseph Balamuta \email{james.balamuta@gmail.com} (\href{https://orcid.org/0000-0003-2826-8458}{ORCID}) [copyright holder]
 
