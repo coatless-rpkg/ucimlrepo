@@ -6,7 +6,7 @@
 \alias{ucimlrepo-package}
 \title{ucimlrepo: Import UCI ML Datasets into R}
 \description{
-Import datasets from the UC Irvine Machine Learning Repository into R scripts, notebooks, and 'Quarto'/'RMarkdown' documents.
+Import datasets from the UCI Machine Learning Repository into R scripts, notebooks, and 'Quarto'/'RMarkdown' documents.
 }
 \seealso{
 Useful links:

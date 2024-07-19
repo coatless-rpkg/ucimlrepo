@@ -9,7 +9,7 @@ Authors@R: c(
            email = "ucirepository@gmail.com", 
            role = c("aut", "cph"))
     )
-Description: Import datasets from the UC Irvine Machine Learning Repository into 
+Description: Import datasets from the UCI Machine Learning Repository into 
     R scripts, notebooks, and 'Quarto'/'RMarkdown' documents.
 URL: https://r-pkg.thecoatlessprofessor.com/ucimlrepo/, https://github.com/coatless-rpkg/ucimlrepo
 BugReports: https://github.com/coatless-rpkg/ucimlrepo/issues
