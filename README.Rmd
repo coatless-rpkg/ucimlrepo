@@ -1,0 +1,85 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# ucimlrepo
+
+<!-- badges: start -->
+  [![R-CMD-check](https://github.com/coatless-rpkg/ucimlrepo/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/coatless-rpkg/ucimlrepo/actions/workflows/R-CMD-check.yaml)
+  <!-- badges: end -->
+
+The goal of `ucimlrepo` is to download and import data sets directly into R 
+from the [UCI Machine Learning Repository](https://archive.ics.uci.edu/).
+
+> [!IMPORTANT]
+> 
+> This package is an unoffical port of the [Python `ucimlrepo` package](https://github.com/uci-ml-repo/ucimlrepo).
+
+
+## Installation
+
+You can install the development version of ucimlrepo from [GitHub](https://github.com/) with:
+
+``` r
+# install.packages("remotes")
+remotes::install_github("coatless-rpkg/ucimlrepo")
+```
+
+## Example
+
+This is a basic example which shows you how to solve a common problem:
+
+```{r}
+#| label: example
+library(ucimlrepo)
+```
+
+With the package now loaded, we can dowload a dataset using the `fetch_repo()` function. 
+For example, to download the `iris` dataset, we can use:
+
+```{r}
+#| label: download dataset
+# Fetch a dataset by name
+iris_by_name <- fetch_ucirepo(name = "iris")
+names(iris_by_name)
+```
+
+There are many levels to the data returned. For example, we can extract the 
+original data frame containing the `iris` dataset using:
+
+
+```{r}
+iris_uci <- iris_by_name$data$original
+head(iris_uci)
+```
+
+You can also directly query by using an ID: 
+
+```{r}
+#| label: download dataset by id
+#| eval: false
+# Fetch a dataset by id
+iris_by_id <- fetch_ucirepo(id = 53)
+```
+
+We can also view a list of data sets available for download
+using the `list_available_datasets()` function:
+
+
+```{r}
+#| label: list-packages
+#| eval: false
+# List available datasets
+list_available_datasets()
+```
