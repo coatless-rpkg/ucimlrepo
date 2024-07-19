@@ -125,7 +125,7 @@ fetch_ucirepo <- function(name, id) {
 
   # Parse into dataframe using read.csv
   df <- tryCatch({
-    read.csv(data_url)
+    utils::read.csv(data_url)
   }, error = function(e) {
     stop(paste0('Error reading data csv file for "', name, '" dataset (id=', id, ').'))
   })
