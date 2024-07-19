@@ -125,7 +125,7 @@ fetch_ucirepo <- function(name, id) {
 
   # Parse into dataframe using read.csv
   df <- tryCatch({
-    utils::read.csv(data_url)
+    utils::read.csv(data_url, check.names = FALSE)
   }, error = function(e) {
     stop(paste0('Error reading data csv file for "', name, '" dataset (id=', id, ').'))
   })
@@ -155,10 +155,7 @@ fetch_ucirepo <- function(name, id) {
       stop('Role must be one of "ID", "Feature", "Target", or "Other"')
     }
 
-    # If a variable has a period, this ensures a period is placed.
-    var_name <- gsub(x = variable$name, pattern = " ", replacement = ".")
-
-    variables_by_role[[variable$role]] <- c(variables_by_role[[variable$role]], var_name)
+    variables_by_role[[variable$role]] <- c(variables_by_role[[variable$role]], variable$name)
   }
 
   # Extract dataframes for each variable role
