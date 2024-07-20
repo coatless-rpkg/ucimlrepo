@@ -1,6 +1,6 @@
 Package: ucimlrepo
 Title: Import UCI ML Datasets into R
-Version: 0.0.0.9000
+Version: 0.0.1
 Authors@R: c(
     person("James Joseph", "Balamuta", email = "james.balamuta@gmail.com", 
            role = c("aut", "cre", "cph"), 
