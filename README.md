@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# ucimlrepo
+# ucimlrepo <img src="man/figures/logo-ucimlrepo.png" align ="right" alt="A hexagonal logo of the ucimlrepo R package that shows data being downloaded from a repository" width ="150"/>
 
 <!-- badges: start -->
 

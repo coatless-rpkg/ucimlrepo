@@ -13,7 +13,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-# ucimlrepo
+# ucimlrepo <img src="man/figures/logo-ucimlrepo.png" align ="right" alt="A hexagonal logo of the ucimlrepo R package that shows data being downloaded from a repository" width ="150"/>
 
 <!-- badges: start -->
   [![R-CMD-check](https://github.com/coatless-rpkg/ucimlrepo/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/coatless-rpkg/ucimlrepo/actions/workflows/R-CMD-check.yaml)
