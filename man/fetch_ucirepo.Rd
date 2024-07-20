@@ -77,8 +77,17 @@ metadata information.
 Only provide name or id, not both.
 }
 \examples{
-\dontrun{
-result <- fetch_ucirepo(name = "iris")
-result <- fetch_ucirepo(id = 1)
-}
+# Access Data by Name
+iris_dl <- fetch_ucirepo(name = "iris")
+
+# Access original data
+iris_uci <- iris_dl$data$original
+
+# Access features and targets
+iris_features <- iris_dl$data$features
+iris_targets <- iris_dl$data$targets
+
+# Access Data by ID
+iris_dl <- fetch_ucirepo(id = 53)
+
 }
