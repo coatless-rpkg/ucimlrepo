@@ -65,7 +65,41 @@ head(iris_uci)
 #> 6          5.4         3.9          1.7         0.4 Iris-setosa
 ```
 
-You can also directly query by using an ID:
+Alternatively, we could retrieve two data frames, one for the features
+and one for the targets:
+
+``` r
+iris_features <- iris_by_name$data$features
+iris_targets <- iris_by_name$data$targets
+```
+
+We can then view the first few rows of each data frame:
+
+``` r
+head(iris_features)
+#>   sepal length sepal width petal length petal width
+#> 1          5.1         3.5          1.4         0.2
+#> 2          4.9         3.0          1.4         0.2
+#> 3          4.7         3.2          1.3         0.2
+#> 4          4.6         3.1          1.5         0.2
+#> 5          5.0         3.6          1.4         0.2
+#> 6          5.4         3.9          1.7         0.4
+```
+
+``` r
+head(iris_targets)
+#>         class
+#> 1 Iris-setosa
+#> 2 Iris-setosa
+#> 3 Iris-setosa
+#> 4 Iris-setosa
+#> 5 Iris-setosa
+#> 6 Iris-setosa
+```
+
+Alternatively, you can also directly query by using an ID found by using
+`list_available_datasets()` or by looking up the dataset on the UCI ML
+Repo website:
 
 ``` r
 # Fetch a dataset by id

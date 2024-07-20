@@ -62,13 +62,27 @@ names(iris_by_name)
 There are many levels to the data returned. For example, we can extract the 
 original data frame containing the `iris` dataset using:
 
-
 ```{r}
 iris_uci <- iris_by_name$data$original
 head(iris_uci)
 ```
 
-You can also directly query by using an ID: 
+Alternatively, we could retrieve two data frames, one for the features and one for the targets:
+
+```{r}
+iris_features <- iris_by_name$data$features
+iris_targets <- iris_by_name$data$targets
+```
+
+We can then view the first few rows of each data frame:
+
+```{r}
+head(iris_features)
+head(iris_targets)
+```
+
+Alternatively, you can also directly query by using an ID found by using
+`list_available_datasets()` or by looking up the dataset on the UCI ML Repo website: 
 
 ```{r}
 #| label: download dataset by id
