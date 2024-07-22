@@ -88,9 +88,9 @@ list_available_datasets <- function(filter, search, area) {
   attr(table_of_data, 'search') <- if(!missing(search)) search else NULL
   attr(table_of_data, 'area') <-  if(!missing(area)) area else NULL
 
+  # Add class to the data frame to allow for customized print
   class(table_of_data) <- c('ucimlrepo_list_of_available_datasets', 'data.frame')
 
-  # Print the table of data
   return(table_of_data)
 }
 
