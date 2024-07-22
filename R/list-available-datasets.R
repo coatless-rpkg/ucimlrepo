@@ -83,39 +83,52 @@ list_available_datasets <- function(filter, search, area) {
   # Create and return a table of data
   table_of_data <- as.data.frame(do.call(rbind, data))
 
-  # Column width for dataset name
-  maxNameLen <- max(nchar(sapply(data, function(d) d$name))) + 3
-  maxNameLen <- max(maxNameLen, 15)
+  # Add attributes to the data frame
+  attr(table_of_data, 'filter') <- if(!missing(filter)) filter else NULL
+  attr(table_of_data, 'search') <- if(!missing(search)) search else NULL
+  attr(table_of_data, 'area') <-  if(!missing(area)) area else NULL
+
+  class(table_of_data) <- c('ucimlrepo_list_of_available_datasets', 'data.frame')
+
+  # Print the table of data
+  return(table_of_data)
+}
+
+#' @export
+print.ucimlrepo_list_of_available_datasets <- function(x, ...) {
+
+  # Create separate data frame to operate on...
+  x2 <- x
+
+  # Unpack
+  filter <- attr(x, 'filter')
+  search <- attr(x, 'search')
+  area <- attr(x, 'area')
+
+  # Nullify
+  attr(x2, 'filter') <- NULL
+  attr(x2, 'search') <- NULL
+  attr(x2, 'area') <- NULL
+  class(x2) <- 'data.frame'
 
   # Print table title
-  title <- paste0('The following ', if (!missing(filter)) paste0(filter, ' ') else '', 'datasets are available', if (!missing(search)) paste0(' for search query "', search, '"') else '', ':')
+  title <- paste0(
+    'The following ', if (!is.null(filter)) paste0(filter, ' ') else '',
+    'datasets are available',
+    if (!is.null(search)) paste0(' for search query "', search, '"') else '', ':'
+  )
+
   cat(paste(rep('-', nchar(title)), collapse = ''), fill = TRUE)
   cat(title, fill = TRUE)
-  if (!missing(area)) {
+  if (!is.null(area)) {
     cat(paste0('For subject area: ', area), fill = TRUE)
   }
   cat(paste(rep('-', nchar(title)), collapse = ''), fill = TRUE)
 
-  # Print table headers
-  header_str <- sprintf('%-*s %-6s', maxNameLen, 'Dataset Name', 'ID')
-  underline_str <- sprintf('%-*s %-6s', maxNameLen, '------------', '--')
-  if (length(data) > 0 && 'description' %in% names(data$data[[1]])) {
-    header_str <- paste0(header_str, ' ', sprintf('%-100s', 'Prediction Task'))
-    underline_str <- paste0(underline_str, ' ', sprintf('%-100s', '---------------'))
-  }
-  cat(header_str, fill = TRUE)
-  cat(underline_str, fill = TRUE)
 
-  # Print row for each dataset
-  for (dataset in data) {
-    row_str <- sprintf('%-*s %-6d', maxNameLen, dataset$name, dataset$id)
-    if ('description' %in% names(dataset)) {
-      row_str <- paste0(row_str, ' ', sprintf('%-100s', dataset$description))
-    }
-    cat(row_str, fill = TRUE)
-  }
+  # Print the table
+  print(x2[, c('name', 'id')], row.names = FALSE, right = FALSE)
 
   cat(fill = TRUE)
-
-  return(invisible(table_of_data))
+  invisible(x)
 }
