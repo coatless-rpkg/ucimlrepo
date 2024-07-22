@@ -4,15 +4,16 @@
 \name{ucimlrepo-package}
 \alias{ucimlrepo}
 \alias{ucimlrepo-package}
-\title{ucimlrepo: Import UCI ML Datasets into R}
+\title{ucimlrepo: Explore UCI ML Repository Datasets}
 \description{
-Import datasets from the UCI Machine Learning Repository into R scripts, notebooks, and 'Quarto'/'RMarkdown' documents.
+Find and import datasets from the University of California Irvine Machine Learning (UCI ML) Repository into R. Supports working with data from UCI ML repository inside of R scripts, notebooks, and 'Quarto'/'RMarkdown' documents. Access the UCI ML repository directly at \url{https://archive.ics.uci.edu/}.
 }
 \seealso{
 Useful links:
 \itemize{
   \item \url{https://r-pkg.thecoatlessprofessor.com/ucimlrepo/}
   \item \url{https://github.com/coatless-rpkg/ucimlrepo}
+  \item \url{https://archive.ics.uci.edu/}
   \item Report bugs at \url{https://github.com/coatless-rpkg/ucimlrepo/issues}
 }
 

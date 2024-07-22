@@ -1,5 +1,5 @@
 Package: ucimlrepo
-Title: Import UCI ML Datasets into R
+Title: Explore UCI ML Repository Datasets
 Version: 0.0.1
 Authors@R: c(
     person("James Joseph", "Balamuta", email = "james.balamuta@gmail.com", 
@@ -9,9 +9,12 @@ Authors@R: c(
            email = "ucirepository@gmail.com", 
            role = c("aut", "cph"))
     )
-Description: Import datasets from the UCI Machine Learning Repository into 
-    R scripts, notebooks, and 'Quarto'/'RMarkdown' documents.
-URL: https://r-pkg.thecoatlessprofessor.com/ucimlrepo/, https://github.com/coatless-rpkg/ucimlrepo
+Description: Find and import datasets from the
+    University of California Irvine Machine Learning (UCI ML) Repository into R.
+    Supports working with data from UCI ML repository inside of R scripts, notebooks, 
+    and 'Quarto'/'RMarkdown' documents. Access the UCI ML repository directly at
+    <https://archive.ics.uci.edu/>.
+URL: https://r-pkg.thecoatlessprofessor.com/ucimlrepo/, https://github.com/coatless-rpkg/ucimlrepo, https://archive.ics.uci.edu/
 BugReports: https://github.com/coatless-rpkg/ucimlrepo/issues
 License: MIT + file LICENSE
 Depends: R (>= 4.1)
