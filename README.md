@@ -17,6 +17,14 @@ Repository](https://archive.ics.uci.edu/).
 > This package is an unoffical port of the [Python `ucimlrepo`
 > package](https://github.com/uci-ml-repo/ucimlrepo).
 
+> \[!NOTE\]
+>
+> Want to have datasets alongside a help documentation entry?
+>
+> Check out the [`{ucidata}`](https://github.com/coatless-rpkg/ucidata)
+> R package! The package provides a small selection of data sets from
+> the UC Irvine Machine Learning Repository alongside of help entries.
+
 ## Installation
 
 You can install the development version of ucimlrepo from
