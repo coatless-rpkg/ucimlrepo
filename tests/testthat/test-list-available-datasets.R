@@ -10,6 +10,23 @@ test_that("list_available_datasets(): graceful errors", {
 
 })
 
+test_that("list_available_datasets(): Graceful errors with bad connection", {
+  skip_on_cran()
+
+  with_mocked_bindings(
+    code = {
+      # Check we ommit a diagnostic message instead of a hard error
+      expect_message(result <- list_available_datasets(search = "toad"))
+
+      # Verify empty variables data frame
+      # (This indicates an empty/failed response)
+      expect_equal(nrow(result), 0)
+    },
+    request = function(...) { stop("Error!") },
+    .package = "httr2"
+  )
+})
+
 test_that("list_available_datasets(): search", {
   skip_on_cran()
 
