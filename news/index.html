@@ -37,6 +37,7 @@
 <div class="section level3">
 <h3 id="features-0-0-2">Features<a class="anchor" aria-label="anchor" href="#features-0-0-2"></a></h3>
 <ul><li>Improved graceful errors for <code><a href="../reference/fetch_ucirepo.html">fetch_ucirepo()</a></code> and <code><a href="../reference/list_available_datasets.html">list_available_datasets()</a></code> when resources are not found/available. (<a href="https://github.com/coatless-rpkg/ucimlrepo/issues/3" class="external-link">#3</a>, thanks Prof. Ripley!)</li>
+<li>Speed up <code><a href="../reference/fetch_ucirepo.html">fetch_ucirepo()</a></code> for large data frames by switching to using base functionals instead of growing a vector in a loop while sorting variable roles. (<a href="https://github.com/coatless-rpkg/ucimlrepo/pull/6" class="external-link">#6</a>)</li>
 </ul></div>
 <div class="section level3">
 <h3 id="bug-fixes-0-0-2">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-0-0-2"></a></h3>
