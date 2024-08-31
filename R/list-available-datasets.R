@@ -1,3 +1,32 @@
+#' Empty Search Response
+#'
+#' Internal function to create an empty search response.
+#'
+#' @return
+#' A data frame with three empty columns of 'id', 'name', and 'url'.
+#'
+#' @seealso
+#' [`list_available_datasets()`]
+#'
+#' @keywords internal
+empty_search_response <- function() {
+  search <- data.frame(
+    id = integer(),
+    name = character(),
+    url = character(),
+    stringsAsFactors = FALSE
+  )
+
+  # Nullify attributes
+  attr(search, 'filter') <- NULL
+  attr(search, 'search') <- NULL
+  attr(search, 'area') <-  NULL
+
+  search
+}
+
+
+
 #' List Available Datasets from UCI ML Repository
 #'
 #' Prints a list of datasets that can be imported via the \code{fetch_ucirepo} function.
@@ -7,14 +36,14 @@
 #' @param area Character. Optional query to filter available datasets based on subject area.
 #'
 #' @return
-#' Prints the list of available datasets.
-#'
-#' Invisibly returns a data frame containing the list of available datasets
+#' A data frame containing the list of available datasets
 #' with columns of:
 #'
 #' - **id**: Integer ID for the data set.
 #' - **name**: Name of Dataset
 #' - **url**: Download location of the data set
+#'
+#' In the event the search fails, the data frame returned will be empty.
 #'
 #' @include constants.R
 #' @export
@@ -56,15 +85,16 @@ list_available_datasets <- function(filter, search, area) {
   }
 
   # Fetch list of datasets from API
-  response <- tryCatch({
+  response <- try({
     httr2::request(API_LIST_URL) |>
       httr2::req_url_query(!!!query_params) |>
       httr2::req_perform()
-  }, error = function(e) {
-    message('Error connecting to server')
-    message(e)
-    return()
   })
+
+  if (inherits(response, "try-error")) {
+    message('Error connecting to server')
+    return(invisible(empty_search_response()))
+  }
 
   # Convert body to JSON
   # Avoid enforcing the application/json format response
@@ -72,12 +102,12 @@ list_available_datasets <- function(filter, search, area) {
 
   if (response$status_code != 200) {
     message('Error fetching datasets with status code: ', response$status_code)
-    return()
+    return(invisible(empty_search_response()))
   }
 
   if (length(data) == 0) {
     message('No datasets found')
-    return()
+    return(invisible(empty_search_response()))
   }
 
   # Create and return a table of data
