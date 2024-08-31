@@ -1,6 +1,6 @@
 Package: ucimlrepo
 Title: Explore UCI ML Repository Datasets
-Version: 0.0.1
+Version: 0.0.2
 Authors@R: c(
     person("James Joseph", "Balamuta", email = "james.balamuta@gmail.com", 
            role = c("aut", "cre", "cph"), 
@@ -23,7 +23,7 @@ Imports:
     utils
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.1
+RoxygenNote: 7.3.2
 Collate: 
     'constants.R'
     'fetch-ucirepo.R'

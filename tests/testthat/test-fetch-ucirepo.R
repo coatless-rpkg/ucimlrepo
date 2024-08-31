@@ -1,3 +1,20 @@
+test_that("fetch_ucirepo(): Graceful errors", {
+  skip_on_cran()
+
+  with_mocked_bindings(
+    code = {
+      # Check we ommit a diagnostic message instead of a hard error
+      expect_message(result <- fetch_ucirepo(id = -5))
+
+      # Verify empty variables data frame
+      # (This indicates an empty/failed response)
+      expect_equal(nrow(result$variables), 0)
+    },
+    request = function(...) { stop("Error!") },
+    .package = "httr2"
+  )
+})
+
 test_that("fetch_ucirepo(): Nonexistent dataset", {
   skip_on_cran()
   expect_message(fetch_ucirepo(id = 2000))

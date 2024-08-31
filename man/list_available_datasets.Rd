@@ -14,15 +14,15 @@ list_available_datasets(filter, search, area)
 \item{area}{Character. Optional query to filter available datasets based on subject area.}
 }
 \value{
-Prints the list of available datasets.
-
-Invisibly returns a data frame containing the list of available datasets
+A data frame containing the list of available datasets
 with columns of:
 \itemize{
 \item \strong{id}: Integer ID for the data set.
 \item \strong{name}: Name of Dataset
 \item \strong{url}: Download location of the data set
 }
+
+In the event the search fails, the data frame returned will be empty.
 }
 \description{
 Prints a list of datasets that can be imported via the \code{fetch_ucirepo} function.
