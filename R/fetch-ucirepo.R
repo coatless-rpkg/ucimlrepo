@@ -1,3 +1,78 @@
+#' Empty Fetch Response
+#'
+#' Internal function to create an empty fetch response.
+#'
+#' @return
+#' A list containing dataset metadata, dataframes, and variable info in its properties.
+#'
+#' @seealso
+#' [`fetch_ucirepo()`]
+#'
+#' @keywords internal
+empty_fetch_response <- function() {
+  list(
+    data = list(
+      ids = data.frame(),
+      features = data.frame(),
+      targets = data.frame(),
+      original = data.frame(),
+      headers = character()
+    ),
+    metadata = list(
+      uci_id = integer(),
+      name = character(),
+      repository_url = character(),
+      data_url = character(),
+      abstract = character(),
+      area = character(),
+      tasks = list(),
+      characteristics = list(),
+      num_instances = integer(),
+      num_features = integer(),
+      feature_types = list(),
+      demographics = list(),
+      target_col = list(),
+      index_col = NULL,
+      has_missing_values = character(),
+      missing_values_symbol = character(),
+      year_of_dataset_creation = integer(),
+      last_updated = character(),
+      dataset_doi = character(),
+      creators = list(),
+      intro_paper = list(
+        title = character(),
+        authors = character(),
+        published_in = character(),
+        year = integer(),
+        url = character(),
+        doi = NULL
+      ),
+      additional_info = list(
+        summary = character(),
+        purpose = NULL,
+        funded_by = NULL,
+        instances_represent = NULL,
+        recommended_data_splits = NULL,
+        sensitive_data = NULL,
+        preprocessing_description = NULL,
+        variable_info = character(),
+        citation = NULL
+      )
+    ),
+    variables = data.frame(
+      name = character(),
+      role = character(),
+      type = character(),
+      demographic = character(),
+      description = character(),
+      units = character(),
+      missing_values = character(),
+      stringsAsFactors = FALSE
+    )
+  )
+}
+
+
 #' Fetch UCI ML Repository Dataset
 #'
 #' Loads a dataset from the UCI ML Repository, including the dataframes and
@@ -103,18 +178,20 @@ fetch_ucirepo <- function(name, id) {
   }
 
   # Fetch metadata from API
-  response <- tryCatch({
+  response <- try({
     httr2::request(API_BASE_URL) |>
       httr2::req_url_query(!!!query_params) |>
       httr2::req_perform()
-  }, error = function(e) {
-    message('Error connecting to server')
-    return()
   })
+
+  if (inherits(response, "try-error")) {
+    message('Error connecting to server')
+    return(invisible(empty_fetch_response()))
+  }
 
   if (response$status_code != 200) {
     message('Dataset not found in repository')
-    return()
+    return(invisible(empty_fetch_response()))
   }
 
   data <- response |> httr2::resp_body_json(check_type = FALSE)
@@ -132,7 +209,7 @@ fetch_ucirepo <- function(name, id) {
   # No data URL means that the dataset cannot be imported into R
   if (is.null(data_url)) {
     message(paste0('"', name, '" dataset (id=', id, ') exists in the repository, but is not available for import. Please select a dataset from this list: https://archive.ics.uci.edu/datasets?skip=0&take=10&sort=desc&orderBy=NumHits&search=&Python=true'))
-    return()
+    return(invisible(empty_fetch_response()))
   }
 
   # Parse into dataframe using read.csv
@@ -140,12 +217,12 @@ fetch_ucirepo <- function(name, id) {
     utils::read.csv(data_url, check.names = FALSE)
   }, error = function(e) {
     message(paste0('Error reading data csv file for "', name, '" dataset (id=', id, ').'))
-    return()
+    return(invisible(empty_fetch_response))
   })
 
   if (nrow(df) == 0) {
     message(paste0('Error reading data csv file for "', name, '" dataset (id=', id, ').'))
-    return()
+    return(invisible(empty_fetch_response()))
   }
 
   # Header line should be variable names
