@@ -248,6 +248,8 @@ fetch_ucirepo <- function(name, id) {
     }
   )
 
+  # Name the list elements
+  names(variables_by_role) <- c("ID", "Feature", "Target", "Other")
 
   # Extract dataframes for each variable role
   ids_df <- if (length(variables_by_role$ID) > 0) df[ , unlist(variables_by_role$ID), drop = FALSE] else NULL
