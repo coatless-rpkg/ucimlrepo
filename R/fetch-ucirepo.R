@@ -246,7 +246,7 @@ fetch_ucirepo <- function(name, id) {
       stop('Role must be one of "ID", "Feature", "Target", or "Other"')
     }
 
-    variables_by_role[[variable$role]] <- c(variables_by_role[[variable$role]], variable$name)
+    variables_by_role[[variable$role]] <- c(variables_by_role[[variable$role]], trimws(variable$name))
   }
 
   # Extract dataframes for each variable role
