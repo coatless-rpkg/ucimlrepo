@@ -5,6 +5,9 @@
 - Improved graceful errors for `fetch_ucirepo()` and `list_available_datasets()`
   when resources are not found/available. ([#3](https://github.com/coatless-rpkg/ucimlrepo/issues/3),
   thanks Prof. Ripley!)
+- Speed up `fetch_ucirepo()` for large data frames by switching to using base 
+  functionals instead of growing a vector in a loop while sorting variable roles.
+  ([#6](https://github.com/coatless-rpkg/ucimlrepo/pull/6))
   
 ## Bug fixes
 

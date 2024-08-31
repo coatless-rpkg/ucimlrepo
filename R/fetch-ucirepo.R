@@ -235,19 +235,21 @@ fetch_ucirepo <- function(name, id) {
   metadata$variables <- NULL
 
   # Organize variables into IDs, features, or targets
-  variables_by_role <- list(
-    ID = list(),
-    Feature = list(),
-    Target = list(),
-    Other = list()
-  )
-  for (variable in variables) {
-    if (!(variable$role %in% names(variables_by_role))) {
-      stop('Role must be one of "ID", "Feature", "Target", or "Other"')
-    }
-
-    variables_by_role[[variable$role]] <- c(variables_by_role[[variable$role]], trimws(variable$name))
+  # First, ensure all roles are valid
+  if (!all(sapply(variables, function(v) v$role %in% c("ID", "Feature", "Target", "Other")))) {
+    stop('Role must be one of "ID", "Feature", "Target", or "Other".')
   }
+
+  # Create the list of variables by role
+  variables_by_role <- lapply(
+    c("ID", "Feature", "Target", "Other"),
+    function(role) {
+      trimws(sapply(variables[sapply(variables, function(v) v$role == role)], `[[`, "name"))
+    }
+  )
+
+  # Name the list elements
+  names(variables_by_role) <- c("ID", "Feature", "Target", "Other")
 
   # Extract dataframes for each variable role
   ids_df <- if (length(variables_by_role$ID) > 0) df[ , unlist(variables_by_role$ID), drop = FALSE] else NULL
